@@ -5,11 +5,10 @@ const counter = useCounterStore()
 </script>
 
 <template>
-  <main class="container">
-    <div>Current Count: {{ counter }}</div>
-
+  <div class="text-inter text-regular">
+    <!--    <div>Current Count: {{ counter }}</div>-->
     <RouterView></RouterView>
-  </main>
+  </div>
 </template>
 
 <style>

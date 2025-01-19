@@ -1,0 +1,12 @@
+:root {
+
+    --white: #ffffff;
+    --gray-50: #F9FAFB;
+    --gray-200: #EAECF0;
+    --gray-500: #667085;
+    --gray-900: #101828;
+    --primary-100: #F4EBFF;
+    --primary-600: #7F56D9;
+    --button-bg-hover: rgba(127, 86, 217, 0.7);
+    --button-bg-active: rgba(127, 86, 217, 0.85);
+}

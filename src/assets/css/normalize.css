@@ -355,6 +355,17 @@ template {
     display: none;
 }
 
+button {
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+button:focus-visible, button:focus, button:focus-within {
+    outline: none;
+}
+
 #app {
     max-width: 100%;
     margin: 0;

@@ -16,19 +16,17 @@
 
 <style scoped>
 @import '@/assets/css/container.css';
+@import '@/assets/css/colors.css';
 
 .wrapper__header {
   color: var(--gray-900);
   font-size: 18px;
   line-height: 28px;
-  border-left: 1px solid red;
-  border-right: 1px solid red;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid var(--gray-200);
+  padding: 20px 0;
 }
 
 .wrapper__main {
   color: var(--gray-500);
-  border-left: 1px solid red;
-  border-right: 1px solid red;
 }
 </style>

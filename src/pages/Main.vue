@@ -7,11 +7,6 @@ import WrapperPage from '@/components/WrapperPage.vue'
     <template #header>
       <div class="main-page-header">
         <h1 class="main-page-header__heading text-medium">My projects</h1>
-
-        <button class="main-page-header__button">
-          <img src="@/assets/icons/cloud-icon.svg" alt="cloud-icon" class="main-page-header__button-img">
-          <span class="text-medium main-page-header__button-span">Upload</span>
-        </button>
       </div>
     </template>
 
@@ -47,13 +42,13 @@ import WrapperPage from '@/components/WrapperPage.vue'
 }
 
 .main-page-header__heading {
-  font-size: initial;
-  line-height: initial;
+  font-size: 18px;
+  line-height: 28px;
 }
 
-.main-page-header__button, .main-page-content__button {
+.main-page-content__button {
   padding: 10px 16px;
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: var(--primary-600);
   transition: background-color .1s ease-in-out;
   color: white;
@@ -75,13 +70,33 @@ import WrapperPage from '@/components/WrapperPage.vue'
   flex-direction: column;
   align-items: center;
   padding: 40px 0 48px;
-}qwe
+}
+
+.main-page-content__img {
+  margin-bottom: 16px;
+}
+
 .main-page-content__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   text-align: center;
   max-width: 352px;
+  margin-bottom: 24px;
 }
-.main-page-content__info-description {}
-.main-page-content__info-span {}
+
+.main-page-content__info-description {
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--gray-900);
+  font-weight: 500;
+}
+
+.main-page-content__info-span {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--gray-500);
+}
 
 .main-page-content__button {
   width: fit-content;

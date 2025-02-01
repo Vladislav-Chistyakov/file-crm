@@ -5,7 +5,7 @@ import WrapperPage from '@/components/WrapperPage.vue'
 <template>
   <WrapperPage>
     <template #header>
-      <div class="page-files-header">
+      <div class="page-files-header wrapper">
         <h1 class="page-files-header__heading text-medium">Files uploaded</h1>
 
         <button class="page-files-header__button">
@@ -17,6 +17,37 @@ import WrapperPage from '@/components/WrapperPage.vue'
 
     <template #main>
       <section class="page-files-content">
+        <table class="page-files-content__table">
+          <thead>
+            <tr class="">
+              <th class="th">File name</th>
+              <th class="th">File size</th>
+              <th class="th">Data Upload</th>
+              <th class="th">*</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr class="tr">
+              <td class="td">1</td>
+              <td class="td">9.1</td>
+              <td class="td">Зелёная миля</td>
+              <td class="td">1999</td>
+            </tr>
+            <tr class="tr">
+              <td class="td">2</td>
+              <td class="td">9.1</td>
+              <td class="td">Побег из Шоушенка</td>
+              <td class="td">1994</td>
+            </tr>
+            <tr class="tr">
+              <td class="td">3</td>
+              <td class="td">8.6</td>
+              <td class="td">Властелин колец: Возвращение Короля</td>
+              <td class="td">2003</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
     </template>
   </WrapperPage>
@@ -60,42 +91,24 @@ import WrapperPage from '@/components/WrapperPage.vue'
 }
 
 .page-files-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 0 48px;
+  width: 100%;
 }
 
-.page-files-content__img {
-  margin-bottom: 16px;
+.page-files-content__table {
+  width: 100%;
 }
 
-.page-files-content__info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  text-align: center;
-  max-width: 352px;
-  margin-bottom: 24px;
+.th, .td {
+  padding: 12px 26px;
+  text-align: start;
 }
 
-.page-files-content__info-description {
-  font-size: 16px;
-  line-height: 24px;
-  color: var(--gray-900);
-  font-weight: 500;
+.tr:nth-child(odd) {
+  background-color: white;
 }
 
-.page-files-content__info-span {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--gray-500);
-}
-
-.page-files-content__button {
-  width: fit-content;
-  padding-left: 138px;
-  padding-right: 138px;
+.tr:nth-child(even) {
+  background-color: var(--gray-50);
 }
 </style>
 

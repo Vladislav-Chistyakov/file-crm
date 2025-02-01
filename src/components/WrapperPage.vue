@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="container">
     <header class="wrapper__header">
       <slot name="header" />
     </header>

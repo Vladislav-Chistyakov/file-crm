@@ -17,34 +17,42 @@ import WrapperPage from '@/components/WrapperPage.vue'
 
     <template #main>
       <section class="page-files-content">
-        <table class="page-files-content__table">
-          <thead>
-            <tr class="">
-              <th class="th">File name</th>
-              <th class="th">File size</th>
-              <th class="th">Data Upload</th>
-              <th class="th">*</th>
+        <table class="page-files-content__table table">
+          <thead class="table__thead">
+            <tr class="table__thead-tr">
+              <th class="table__thead-th">File name</th>
+              <th class="table__thead-th">File size</th>
+              <th class="table__thead-th">Data Upload</th>
+              <th class="table__thead-th">*</th>
             </tr>
           </thead>
 
-          <tbody>
-            <tr class="tr">
-              <td class="td">1</td>
-              <td class="td">9.1</td>
-              <td class="td">Зелёная миля</td>
-              <td class="td">1999</td>
-            </tr>
-            <tr class="tr">
-              <td class="td">2</td>
-              <td class="td">9.1</td>
-              <td class="td">Побег из Шоушенка</td>
-              <td class="td">1994</td>
-            </tr>
-            <tr class="tr">
-              <td class="td">3</td>
-              <td class="td">8.6</td>
-              <td class="td">Властелин колец: Возвращение Короля</td>
-              <td class="td">2003</td>
+          <tbody class="table__tbody">
+            <tr class="table__tbody-tr">
+              <td class="table__tbody-td">
+                <div class="table__tbody-td__name">
+                  <div class="table__tbody-td__name-circle">
+                    <img src="@/assets/icons/file-icon.svg" alt="file-icon" class="table__tbody-td__name-circle-image">
+                  </div>
+
+                  <div class="table__tbody-td__name-info">
+                    <p class="table__tbody-td__name-info-strong">Tech requirements.pdf</p>
+                    <span class="table__tbody-td__name-info-size">200 KB</span>
+                  </div>
+                </div>
+              </td>
+              
+              <td class="table__tbody-td">200 KB</td>
+              
+              <td class="table__tbody-td">Jan 4, 2022</td>
+              
+              <td class="table__tbody-td">
+                <button class="table__tbody-td-button">
+                  <span class="table__tbody-td-button-span" />
+                  <span class="table__tbody-td-button-span" />
+                  <span class="table__tbody-td-button-span" />
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -98,17 +106,55 @@ import WrapperPage from '@/components/WrapperPage.vue'
   width: 100%;
 }
 
-.th, .td {
-  padding: 12px 26px;
-  text-align: start;
+
+.table__thead {}
+.table__thead-tr {}
+.table__thead-th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
 }
 
-.tr:nth-child(odd) {
+.table__tbody {}
+.table__tbody-tr {}
+
+.table__tbody-td {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.table__thead-th, .table__tbody-td {
+  padding-left: 24px;
+  padding-right: 24px;
+  text-align: start;
+}
+.table__tbody-tr:nth-child(odd), .table__thead-th:nth-child(odd) {
   background-color: white;
 }
 
-.tr:nth-child(even) {
+.table__tbody-tr:nth-child(even) {
   background-color: var(--gray-50);
+}
+
+.table__tbody-td-button {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+  gap: 3px
+}
+
+.table__tbody-td-button-span {
+  display: block;
+  border-radius: 100%;
+  height: 3px;
+  width: 3px;
+  background-color: var(--gray-600);
 }
 </style>
 

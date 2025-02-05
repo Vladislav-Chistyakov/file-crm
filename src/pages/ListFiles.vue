@@ -17,7 +17,7 @@ import WrapperPage from '@/components/WrapperPage.vue'
 
     <template #main>
       <section class="page-files-content">
-        <table class="page-files-content__table table">
+        <table class="page-files-content__table table" border="0" cellpadding="0" cellspacing="0">
           <thead class="table__thead">
             <tr class="table__thead-tr">
               <th class="table__thead-th">File name</th>
@@ -36,16 +36,97 @@ import WrapperPage from '@/components/WrapperPage.vue'
                   </div>
 
                   <div class="table__tbody-td__name-info">
-                    <p class="table__tbody-td__name-info-strong">Tech requirements.pdf</p>
-                    <span class="table__tbody-td__name-info-size">200 KB</span>
+                    <p class="table__tbody-td__name-info-description">Tech requirements.pdf</p>
+                    <span class="table__tbody-td__name-info-size text-gray-500">200 KB</span>
                   </div>
                 </div>
               </td>
               
-              <td class="table__tbody-td">200 KB</td>
+              <td class="table__tbody-td text-gray-500">200 KB</td>
               
-              <td class="table__tbody-td">Jan 4, 2022</td>
+              <td class="table__tbody-td text-gray-500">Jan 4, 2022</td>
               
+              <td class="table__tbody-td">
+                <button class="table__tbody-td-button">
+                  <span class="table__tbody-td-button-span" />
+                  <span class="table__tbody-td-button-span" />
+                  <span class="table__tbody-td-button-span" />
+                </button>
+              </td>
+            </tr>
+
+            <tr class="table__tbody-tr">
+              <td class="table__tbody-td">
+                <div class="table__tbody-td__name">
+                  <div class="table__tbody-td__name-circle">
+                    <img src="@/assets/icons/file-icon.svg" alt="file-icon" class="table__tbody-td__name-circle-image">
+                  </div>
+
+                  <div class="table__tbody-td__name-info">
+                    <p class="table__tbody-td__name-info-description">Tech requirements.pdf</p>
+                    <span class="table__tbody-td__name-info-size text-gray-500">200 KB</span>
+                  </div>
+                </div>
+              </td>
+
+              <td class="table__tbody-td text-gray-500">200 KB</td>
+
+              <td class="table__tbody-td text-gray-500">Jan 4, 2022</td>
+
+              <td class="table__tbody-td">
+                <button class="table__tbody-td-button">
+                  <span class="table__tbody-td-button-span" />
+                  <span class="table__tbody-td-button-span" />
+                  <span class="table__tbody-td-button-span" />
+                </button>
+              </td>
+            </tr>
+
+            <tr class="table__tbody-tr">
+              <td class="table__tbody-td">
+                <div class="table__tbody-td__name">
+                  <div class="table__tbody-td__name-circle">
+                    <img src="@/assets/icons/file-icon.svg" alt="file-icon" class="table__tbody-td__name-circle-image">
+                  </div>
+
+                  <div class="table__tbody-td__name-info">
+                    <p class="table__tbody-td__name-info-description">Tech requirements.pdf</p>
+                    <span class="table__tbody-td__name-info-size text-gray-500">200 KB</span>
+                  </div>
+                </div>
+              </td>
+
+              <td class="table__tbody-td text-gray-500">200 KB</td>
+
+              <td class="table__tbody-td text-gray-500">Jan 4, 2022</td>
+
+              <td class="table__tbody-td">
+                <button class="table__tbody-td-button">
+                  <span class="table__tbody-td-button-span" />
+                  <span class="table__tbody-td-button-span" />
+                  <span class="table__tbody-td-button-span" />
+                </button>
+              </td>
+            </tr>
+
+            <tr class="table__tbody-tr">
+              <td class="table__tbody-td">
+                <div class="table__tbody-td__name">
+                  <div class="table__tbody-td__name-circle">
+                    <img src="@/assets/icons/file-icon.svg" alt="file-icon" class="table__tbody-td__name-circle-image">
+                  </div>
+
+                  <div class="table__tbody-td__name-info">
+                    <p class="table__tbody-td__name-info-description">Tech requirements.pdf</p>
+                    <span class="table__tbody-td__name-info-size text-gray-500">200 KB</span>
+                  </div>
+                </div>
+              </td>
+
+              <td class="table__tbody-td text-gray-500">200 KB</td>
+
+              <td class="table__tbody-td text-gray-500">Jan 4, 2022</td>
+
               <td class="table__tbody-td">
                 <button class="table__tbody-td-button">
                   <span class="table__tbody-td-button-span" />
@@ -106,15 +187,13 @@ import WrapperPage from '@/components/WrapperPage.vue'
   width: 100%;
 }
 
-
-.table__thead {}
-.table__thead-tr {}
 .table__thead-th {
   padding-top: 12px;
   padding-bottom: 12px;
   font-size: 12px;
   line-height: 18px;
   font-weight: 400;
+  border-bottom: 1px solid var(--gray-200);
 }
 
 .table__tbody {}
@@ -130,12 +209,21 @@ import WrapperPage from '@/components/WrapperPage.vue'
   padding-right: 24px;
   text-align: start;
 }
-.table__tbody-tr:nth-child(odd), .table__thead-th:nth-child(odd) {
+
+.table__tbody-td {
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.table__thead-th:nth-child(odd) {
   background-color: white;
 }
 
+.table__tbody-tr:nth-child(odd) {
+  background-color: var(--gray-300);
+}
+
 .table__tbody-tr:nth-child(even) {
-  background-color: var(--gray-50);
+  background-color: var(--gray-200);
 }
 
 .table__tbody-td-button {
@@ -155,6 +243,41 @@ import WrapperPage from '@/components/WrapperPage.vue'
   height: 3px;
   width: 3px;
   background-color: var(--gray-600);
+}
+
+.table__tbody-td__name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.table__tbody-td__name-circle {
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-100);
+}
+
+.table__tbody-td__name-info {
+
+}
+
+.table__tbody-td__name-info-description {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--gray-900);
+  font-weight: 500;
+}
+
+.text-gray-500 {
+  color: var(--gray-500);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
 }
 </style>
 

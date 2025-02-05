@@ -22,7 +22,6 @@
   color: var(--gray-900);
   font-size: 18px;
   line-height: 28px;
-  border-bottom: 1px solid var(--gray-200);
   padding: 20px 0;
 }
 

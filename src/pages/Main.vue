@@ -1,6 +1,9 @@
 <script setup>
 import WrapperPage from '@/components/WrapperPage.vue'
-import DropZone from "@/components/DropZone.vue";
+import DropZone from '@/components/DropZone.vue'
+import useFileList from '@/compositions/file-list.js'
+
+const { files, addFiles, removeLise } = useFileList()
 </script>
 
 <template>
@@ -26,7 +29,16 @@ import DropZone from "@/components/DropZone.vue";
         </button>
 
         <div style="padding: 40px 120px; border: 1px solid black">
-          <DropZone>
+          <DropZone class="main-page-content__drop-zone"
+                    @files-dropped="addFiles"
+                    #default="{ dropZoneActive }"
+          >
+            <div v-if="dropZoneActive">
+              <div>Drop Theme</div>
+            </div>
+            <div v-else>
+              <div>Drag Your Files Here</div>
+            </div>
           </DropZone>
         </div>
       </section>

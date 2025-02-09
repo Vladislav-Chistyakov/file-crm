@@ -1,5 +1,6 @@
 <script setup>
 import WrapperPage from '@/components/WrapperPage.vue'
+import DropZone from "@/components/DropZone.vue";
 </script>
 
 <template>
@@ -23,6 +24,11 @@ import WrapperPage from '@/components/WrapperPage.vue'
           <img src="@/assets/icons/cloud-icon.svg" alt="cloud-icon" class="main-page-content__button-img">
           <span class="text-medium main-page-content__button-span">Upload</span>
         </button>
+
+        <div style="padding: 40px 120px; border: 1px solid black">
+          <DropZone>
+          </DropZone>
+        </div>
       </section>
     </template>
   </WrapperPage>

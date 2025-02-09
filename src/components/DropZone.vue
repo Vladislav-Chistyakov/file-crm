@@ -6,29 +6,38 @@
     @dragleave="setInactive"
     :data-active="active"
   >
-    <slot :drop-zone-active="active"></slot>
+    <slot :drop-zone-active="active">
+      <div style="background-color: #7F56D9; padding: 20px"></div>
+    </slot>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-const emit = defineEmit(['files-dropped'])
+const emit = defineEmits(['files-dropped'])
 
 const active = ref(false)
+let inActiveTimeout = null
 
 function setActive () {
+  console.log('set active')
   active.value = true
+  clearTimeout(inActiveTimeout)
 }
 
 function setInactive() {
-  active.value = false
+  console.log('set inactive')
+  inActiveTimeout = setTimeout(() => {
+    active.value = false
+  }, 50)
 }
 
 
 function onDrop(e) {
   setInactive()
-  emit('files-dropped', [e.dateTranfer.files])
+  console.log('onDrop', e)
+  emit('files-dropped', [...e.dataTransfer.files])
 }
 
 function preventDefault(e) {
@@ -43,8 +52,8 @@ onMounted(() => {
   })
 })
 
-onUnmouted(() => {
-  events.forEach(eventName = > {
+onUnmounted(() => {
+  events.forEach(eventName => {
     document.body.removeEventListener(eventName, preventDefault)
   })
 })

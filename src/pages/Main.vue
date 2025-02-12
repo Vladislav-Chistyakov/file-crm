@@ -3,7 +3,7 @@ import WrapperPage from '@/components/WrapperPage.vue'
 import DropZone from '@/components/DropZone.vue'
 import useFileList from '@/compositions/file-list.js'
 
-const { files, addFiles, removeLise } = useFileList()
+const { files, addFiles, removeLise, onInputChange } = useFileList()
 </script>
 
 <template>
@@ -33,13 +33,28 @@ const { files, addFiles, removeLise } = useFileList()
                     @files-dropped="addFiles"
                     #default="{ dropZoneActive }"
           >
-            <div v-if="dropZoneActive">
-              <div>Drop Theme</div>
-            </div>
-            <div v-else>
-              <div>Drag Your Files Here</div>
-            </div>
+            <label for="file-input">
+              <span v-if="dropZoneActive">
+                <span>DropThem Here</span>
+
+                <span class="smaller">to add them</span>
+              </span>
+
+              <span v-else>
+                <span>Drag Your Files Here</span>
+
+                <span class="smaller">
+                  or <strong><em>click here</em></strong> to select files
+                </span>
+              </span>
+
+              <input type="file" id="file-input" multiple @change="onInputChange">
+            </label>
           </DropZone>
+
+          <ul v-show="files.length">
+            <li v-for="file of files" :key="file.id">{{ file.file.name }}</li>
+          </ul>
         </div>
       </section>
     </template>

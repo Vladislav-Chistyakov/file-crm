@@ -10,4 +10,6 @@
     --primary-600: #7F56D9;
     --button-bg-hover: rgba(127, 86, 217, 0.7);
     --button-bg-active: rgba(127, 86, 217, 0.85);
+    --drop-zone-border: rgba(127, 86, 217, 0.7);
+    --drop-zone-bg: rgba(127, 86, 217, 0.3);
 }

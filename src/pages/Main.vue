@@ -2,8 +2,11 @@
 import WrapperPage from '@/components/WrapperPage.vue'
 import DropZone from '@/components/DropZone.vue'
 import useFileList from '@/compositions/file-list.js'
+import {ref} from "vue";
 
 const { files, addFiles, removeLise, onInputChange } = useFileList()
+
+const activeDrop = ref(false)
 </script>
 
 <template>
@@ -16,41 +19,31 @@ const { files, addFiles, removeLise, onInputChange } = useFileList()
 
     <template #main>
       <section class="main-page-content">
-        <img src="@/assets/main-cloud.png" alt="icon" class="main-page-content__img">
+        <DropZone class="main-page-content__drop-zone"
+                  @files-dropped="addFiles"
+                  @dragover="activeDrop = true"
+                  @dragleave="activeDrop = false"
+                  @dragend="activeDrop = false"
+                  @drop="activeDrop = false"
+                  #default="{ dropZoneActive }"
+        >
+          <div class="main-page-content__drop-zone-block" :class="{ 'active-drop' : activeDrop }">
+            <img src="@/assets/main-cloud.png" alt="icon" class="main-page-content__img">
+          </div>
+        </DropZone>
 
         <div class="main-page-content__info">
           <p class="main-page-content__info-description">Start by uploading a file</p>
           <span class="main-page-content__info-span">Any assets used in projects will live here. Start creating by uploading your files.</span>
         </div>
 
-        <button class="main-page-content__button">
-          <img src="@/assets/icons/cloud-icon.svg" alt="cloud-icon" class="main-page-content__button-img">
-          <span class="text-medium main-page-content__button-span">Upload</span>
-        </button>
+        <label  for="file-input" class="main-page-content__label">
+          <img src="@/assets/icons/cloud-icon.svg" alt="cloud-icon" class="main-page-content__label-img">
+          <span class="text-medium main-page-content__label-span">Upload</span>
+          <input class="main-page-content__label-input" type="file" id="file-input" multiple @change="onInputChange">
+        </label>
 
         <div style="padding: 40px 120px; border: 1px solid black">
-          <DropZone class="main-page-content__drop-zone"
-                    @files-dropped="addFiles"
-                    #default="{ dropZoneActive }"
-          >
-            <label for="file-input">
-              <span v-if="dropZoneActive">
-                <span>DropThem Here</span>
-
-                <span class="smaller">to add them</span>
-              </span>
-
-              <span v-else>
-                <span>Drag Your Files Here</span>
-
-                <span class="smaller">
-                  or <strong><em>click here</em></strong> to select files
-                </span>
-              </span>
-
-              <input type="file" id="file-input" multiple @change="onInputChange">
-            </label>
-          </DropZone>
 
           <ul v-show="files.length">
             <li v-for="file of files" :key="file.id">{{ file.file.name }}</li>
@@ -79,7 +72,7 @@ const { files, addFiles, removeLise, onInputChange } = useFileList()
   line-height: 28px;
 }
 
-.main-page-content__button {
+.main-page-content__label {
   padding: 10px 16px;
   border-radius: 8px;
   background-color: var(--primary-600);
@@ -98,6 +91,12 @@ const { files, addFiles, removeLise, onInputChange } = useFileList()
   }
 }
 
+.main-page-content__label-input {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+}
+
 .main-page-content {
   display: flex;
   flex-direction: column;
@@ -105,8 +104,20 @@ const { files, addFiles, removeLise, onInputChange } = useFileList()
   padding: 40px 0 48px;
 }
 
-.main-page-content__img {
-  margin-bottom: 16px;
+.main-page-content__drop-zone-block {
+  display: flex;
+  height: fit-content;
+  padding: 7px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  transition: background-color .1s ease-in, border .1s ease-in;
+}
+
+.main-page-content__drop-zone-block.active-drop {
+  border: 1px solid var(--drop-zone-border);
+  background-color: var(--drop-zone-bg);
 }
 
 .main-page-content__info {
@@ -131,7 +142,7 @@ const { files, addFiles, removeLise, onInputChange } = useFileList()
   color: var(--gray-500);
 }
 
-.main-page-content__button {
+.main-page-content__label {
   width: fit-content;
   padding-left: 138px;
   padding-right: 138px;

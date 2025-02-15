@@ -1,5 +1,10 @@
 <script setup>
 import WrapperPage from '@/components/WrapperPage.vue'
+import { useFilesStore } from '@/store/files.js'
+import {storeToRefs} from "pinia";
+
+const storeFiles = useFilesStore()
+const { filesArray } = storeToRefs(storeFiles)
 </script>
 
 <template>
@@ -28,7 +33,8 @@ import WrapperPage from '@/components/WrapperPage.vue'
           </thead>
 
           <tbody class="table__tbody">
-            <tr class="table__tbody-tr">
+          {{ filesArray }}
+            <tr class="table__tbody-tr" v-for="(fileItem, index) in filesArray"  :key="index">
               <td class="table__tbody-td">
                 <div class="table__tbody-td__name">
                   <div class="table__tbody-td__name-circle">
@@ -36,16 +42,16 @@ import WrapperPage from '@/components/WrapperPage.vue'
                   </div>
 
                   <div class="table__tbody-td__name-info">
-                    <p class="table__tbody-td__name-info-description">Tech requirements.pdf</p>
-                    <span class="table__tbody-td__name-info-size text-gray-500">200 KB</span>
+                    <p class="table__tbody-td__name-info-description">{{ fileItem.name }}</p>
+                    <span class="table__tbody-td__name-info-size text-gray-500">{{ fileItem.size }}</span>
                   </div>
                 </div>
               </td>
-              
-              <td class="table__tbody-td text-gray-500">200 KB</td>
-              
-              <td class="table__tbody-td text-gray-500">Jan 4, 2022</td>
-              
+
+              <td class="table__tbody-td text-gray-500">{{ fileItem.size }}</td>
+
+              <td class="table__tbody-td text-gray-500">{{ fileItem.date }}</td>
+
               <td class="table__tbody-td">
                 <button class="table__tbody-td-button">
                   <span class="table__tbody-td-button-span" />
@@ -202,16 +208,14 @@ import WrapperPage from '@/components/WrapperPage.vue'
 .table__tbody-td {
   padding-top: 16px;
   padding-bottom: 16px;
+  border-bottom: 1px solid var(--gray-200);
+  text-wrap: nowrap;
 }
 
 .table__thead-th, .table__tbody-td {
   padding-left: 24px;
   padding-right: 24px;
   text-align: start;
-}
-
-.table__tbody-td {
-  border-bottom: 1px solid var(--gray-200);
 }
 
 .table__thead-th:nth-child(odd) {
@@ -271,6 +275,10 @@ import WrapperPage from '@/components/WrapperPage.vue'
   line-height: 20px;
   color: var(--gray-900);
   font-weight: 500;
+}
+
+.table__tbody-td__name-info-size {
+  text-wrap: nowrap;
 }
 
 .text-gray-500 {

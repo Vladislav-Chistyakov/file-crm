@@ -1,12 +1,18 @@
 <script setup>
 import WrapperPage from '@/components/WrapperPage.vue'
 import DropZone from '@/components/DropZone.vue'
-import useFileList from '@/compositions/file-list.js'
-import {ref} from "vue";
+import { ref } from 'vue'
+import { useFilesStore } from '@/store/files.js'
+import { useRouter } from 'vue-router'
 
-const { files, addFiles, removeLise, onInputChange } = useFileList()
-
+const { addFiles, onInputChange } = useFilesStore()
 const activeDrop = ref(false)
+const router = useRouter()
+
+const goToFilesList = async () => {
+  activeDrop.value = false
+  await router.push('/list-files')
+}
 </script>
 
 <template>
@@ -24,7 +30,7 @@ const activeDrop = ref(false)
                   @dragover="activeDrop = true"
                   @dragleave="activeDrop = false"
                   @dragend="activeDrop = false"
-                  @drop="activeDrop = false"
+                  @drop="goToFilesList"
                   #default="{ dropZoneActive }"
         >
           <div class="main-page-content__drop-zone-block" :class="{ 'active-drop' : activeDrop }">
@@ -42,13 +48,6 @@ const activeDrop = ref(false)
           <span class="text-medium main-page-content__label-span">Upload</span>
           <input class="main-page-content__label-input" type="file" id="file-input" multiple @change="onInputChange">
         </label>
-
-        <div style="padding: 40px 120px; border: 1px solid black">
-
-          <ul v-show="files.length">
-            <li v-for="file of files" :key="file.id">{{ file.file.name }}</li>
-          </ul>
-        </div>
       </section>
     </template>
   </WrapperPage>

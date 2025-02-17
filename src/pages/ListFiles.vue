@@ -13,10 +13,11 @@ const { filesArray } = storeToRefs(storeFiles)
       <div class="page-files-header wrapper">
         <h1 class="page-files-header__heading text-medium">Files uploaded</h1>
 
-        <button class="page-files-header__button">
-          <img src="@/assets/icons/cloud-icon.svg" alt="cloud-icon" class="page-files-header__button-img">
-          <span class="text-medium page-files-header__button-span">Upload</span>
-        </button>
+        <label  for="file-input" class="page-files-header__label">
+          <img src="@/assets/icons/cloud-icon.svg" alt="cloud-icon" class="page-files-header__label-img">
+          <span class="text-medium page-files-header__label-span">Upload</span>
+          <input class="page-files-header__label-input" type="file" id="file-input" multiple @change="storeFiles.onInputChange">
+        </label>
       </div>
     </template>
 
@@ -166,7 +167,8 @@ const { filesArray } = storeToRefs(storeFiles)
   line-height: initial;
 }
 
-.page-files-header__button, .page-files-content__button {
+.page-files-header__label {
+  position: relative;
   padding: 10px 16px;
   border-radius: 8px;
   background-color: var(--primary-600);
@@ -183,6 +185,12 @@ const { filesArray } = storeToRefs(storeFiles)
   &:active {
     background-color: var(--button-bg-active);
   }
+}
+
+.page-files-header__label-input {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
 }
 
 .page-files-content {

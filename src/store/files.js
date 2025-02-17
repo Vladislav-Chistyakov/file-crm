@@ -41,10 +41,7 @@ export const useFilesStore = defineStore('files', () => {
     }
 
     function removeFile(file) {
-        console.warn(file)
         const index = files.value.indexOf(file)
-        console.warn(index)
-
         if (index > -1) files.value.splice(index, 1)
     }
 

@@ -53,7 +53,7 @@ const { filesArray } = storeToRefs(storeFiles)
               <td class="table__tbody-td text-gray-500">{{ fileItem.date }}</td>
 
               <td class="table__tbody-td">
-                <button class="table__tbody-td-button">
+                <button class="table__tbody-td-button" @click.prevent="storeFiles.removeFile(fileItem.file)">
                   <span class="table__tbody-td-button-span" />
                   <span class="table__tbody-td-button-span" />
                   <span class="table__tbody-td-button-span" />

@@ -58,6 +58,7 @@ export const useFilesStore = defineStore('files', () => {
                 type: file.file.type,
                 size: file.size,
                 date: file.date,
+                url: file.file.url,
             }
         })
     })

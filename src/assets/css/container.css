@@ -1,4 +1,5 @@
 .container {
+    overflow: hidden;
     display: block;
     padding: 0;
 }

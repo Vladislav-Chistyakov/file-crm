@@ -34,114 +34,61 @@ const { filesArray } = storeToRefs(storeFiles)
           </thead>
 
           <tbody class="table__tbody">
-          {{ filesArray }}
-            <tr class="table__tbody-tr" v-for="(fileItem, index) in filesArray"  :key="index">
-              <td class="table__tbody-td">
-                <div class="table__tbody-td__name">
-                  <div class="table__tbody-td__name-circle">
-                    <img src="@/assets/icons/file-icon.svg" alt="file-icon" class="table__tbody-td__name-circle-image">
+            <template v-if="filesArray.length > 0">
+              <tr class="table__tbody-tr" v-for="(fileItem, index) in filesArray" :key="index">
+                <td class="table__tbody-td">
+                  <div class="table__tbody-td__name">
+                    <div class="table__tbody-td__name-circle">
+                      <img src="@/assets/icons/file-icon.svg" alt="file-icon" class="table__tbody-td__name-circle-image">
+                    </div>
+
+                    <div class="table__tbody-td__name-info">
+                      <p class="table__tbody-td__name-info-description">{{ fileItem.name }}</p>
+                      <span class="table__tbody-td__name-info-size text-gray-500">{{ fileItem.size }}</span>
+                    </div>
                   </div>
+                </td>
 
-                  <div class="table__tbody-td__name-info">
-                    <p class="table__tbody-td__name-info-description">{{ fileItem.name }}</p>
-                    <span class="table__tbody-td__name-info-size text-gray-500">{{ fileItem.size }}</span>
+                <td class="table__tbody-td text-gray-500">{{ fileItem.size }}</td>
+
+                <td class="table__tbody-td text-gray-500">{{ fileItem.date }}</td>
+
+                <td class="table__tbody-td">
+                  <div class="table__tbody-td-button-block">
+                    <button class="table__tbody-td-button">
+                      <span class="table__tbody-td-button-span" />
+                      <span class="table__tbody-td-button-span" />
+                      <span class="table__tbody-td-button-span" />
+                    </button>
+
+                    <div class="table__tbody-td-button-dialog">
+                      <button
+                          @click.prevent="storeFiles.removeFile(fileItem.file)"
+                          class="table__tbody-td-button-dialog-btn"
+                      >
+                        Удалить файл
+                      </button>
+
+                      <a v-if="fileItem.file.url"
+                         class="table__tbody-td-button-dialog-btn"
+                         :href="fileItem.file.url"
+                         download
+                      >
+                        Скачать файл
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </td>
+                </td>
+              </tr>
+            </template>
 
-              <td class="table__tbody-td text-gray-500">{{ fileItem.size }}</td>
-
-              <td class="table__tbody-td text-gray-500">{{ fileItem.date }}</td>
-
-              <td class="table__tbody-td">
-                <button class="table__tbody-td-button" @click.prevent="storeFiles.removeFile(fileItem.file)">
-                  <span class="table__tbody-td-button-span" />
-                  <span class="table__tbody-td-button-span" />
-                  <span class="table__tbody-td-button-span" />
-                </button>
-              </td>
-            </tr>
-
-            <tr class="table__tbody-tr">
-              <td class="table__tbody-td">
-                <div class="table__tbody-td__name">
-                  <div class="table__tbody-td__name-circle">
-                    <img src="@/assets/icons/file-icon.svg" alt="file-icon" class="table__tbody-td__name-circle-image">
-                  </div>
-
-                  <div class="table__tbody-td__name-info">
-                    <p class="table__tbody-td__name-info-description">Tech requirements.pdf</p>
-                    <span class="table__tbody-td__name-info-size text-gray-500">200 KB</span>
-                  </div>
-                </div>
-              </td>
-
-              <td class="table__tbody-td text-gray-500">200 KB</td>
-
-              <td class="table__tbody-td text-gray-500">Jan 4, 2022</td>
-
-              <td class="table__tbody-td">
-                <button class="table__tbody-td-button">
-                  <span class="table__tbody-td-button-span" />
-                  <span class="table__tbody-td-button-span" />
-                  <span class="table__tbody-td-button-span" />
-                </button>
-              </td>
-            </tr>
-
-            <tr class="table__tbody-tr">
-              <td class="table__tbody-td">
-                <div class="table__tbody-td__name">
-                  <div class="table__tbody-td__name-circle">
-                    <img src="@/assets/icons/file-icon.svg" alt="file-icon" class="table__tbody-td__name-circle-image">
-                  </div>
-
-                  <div class="table__tbody-td__name-info">
-                    <p class="table__tbody-td__name-info-description">Tech requirements.pdf</p>
-                    <span class="table__tbody-td__name-info-size text-gray-500">200 KB</span>
-                  </div>
-                </div>
-              </td>
-
-              <td class="table__tbody-td text-gray-500">200 KB</td>
-
-              <td class="table__tbody-td text-gray-500">Jan 4, 2022</td>
-
-              <td class="table__tbody-td">
-                <button class="table__tbody-td-button">
-                  <span class="table__tbody-td-button-span" />
-                  <span class="table__tbody-td-button-span" />
-                  <span class="table__tbody-td-button-span" />
-                </button>
-              </td>
-            </tr>
-
-            <tr class="table__tbody-tr">
-              <td class="table__tbody-td">
-                <div class="table__tbody-td__name">
-                  <div class="table__tbody-td__name-circle">
-                    <img src="@/assets/icons/file-icon.svg" alt="file-icon" class="table__tbody-td__name-circle-image">
-                  </div>
-
-                  <div class="table__tbody-td__name-info">
-                    <p class="table__tbody-td__name-info-description">Tech requirements.pdf</p>
-                    <span class="table__tbody-td__name-info-size text-gray-500">200 KB</span>
-                  </div>
-                </div>
-              </td>
-
-              <td class="table__tbody-td text-gray-500">200 KB</td>
-
-              <td class="table__tbody-td text-gray-500">Jan 4, 2022</td>
-
-              <td class="table__tbody-td">
-                <button class="table__tbody-td-button">
-                  <span class="table__tbody-td-button-span" />
-                  <span class="table__tbody-td-button-span" />
-                  <span class="table__tbody-td-button-span" />
-                </button>
-              </td>
-            </tr>
+            <template v-else>
+              <tr class="table__tbody-tr">
+                <td class="table__tbody-td td-not-content " colspan="4">
+                  Нет информации о файлах
+                </td>
+              </tr>
+            </template>
           </tbody>
         </table>
       </section>
@@ -238,6 +185,12 @@ const { filesArray } = storeToRefs(storeFiles)
   background-color: var(--gray-200);
 }
 
+.table__tbody-td-button-block {
+  position: relative;
+  display: flex;
+  width: fit-content;
+}
+
 .table__tbody-td-button {
   cursor: pointer;
   display: flex;
@@ -255,6 +208,44 @@ const { filesArray } = storeToRefs(storeFiles)
   height: 3px;
   width: 3px;
   background-color: var(--gray-600);
+}
+
+.table__tbody-td-button-dialog {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--gray-500);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table__tbody-td-button-dialog-btn {
+  display: flex;
+  padding: 10px 16px;
+  background-color: var(--gray-300);
+  color: var(--gray-900);
+  align-items: center;
+  font-size: 14px;
+  line-height: 20px;
+  transition: background-color .1s ease-in-out, color .1s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.table__tbody-td-button-dialog-btn:hover {
+  background-color: var(--gray-500);
+  color: white;
+}
+
+.table__tbody-td-button-dialog-btn:active {
+  background-color: var(--gray-900);
+  color: white;
+}
+
+.table__tbody-td-button-dialog-btn:not(:last-child) {
+  border-bottom: 1px solid var(--gray-500);
 }
 
 .table__tbody-td__name {
@@ -294,6 +285,12 @@ const { filesArray } = storeToRefs(storeFiles)
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
+}
+
+.td-not-content {
+  text-align: center;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 </style>
 

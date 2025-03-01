@@ -2,9 +2,28 @@
 import WrapperPage from '@/components/WrapperPage.vue'
 import { useFilesStore } from '@/store/files.js'
 import {storeToRefs} from "pinia";
+import DropdownMenu from "@/components/DropdownMenu.vue";
+import {onMounted, useTemplateRef} from "vue";
 
 const storeFiles = useFilesStore()
 const { filesArray } = storeToRefs(storeFiles)
+
+const dropMenu = useTemplateRef('drop-menu')
+
+const list = useTemplateRef('items')
+
+onMounted(() => console.log(list.value))
+
+function deleteElement (file) {
+
+  console.log(list)
+  console.log(list.value)
+  // console.log(dropMenu)
+  // console.log(dropMenu.value.hide)
+  // console.log(dropMenu.value.hide())
+  // dropMenu.hide()
+  // storeFiles.removeFile(file.file)
+}
 </script>
 
 <template>
@@ -35,7 +54,7 @@ const { filesArray } = storeToRefs(storeFiles)
 
           <tbody class="table__tbody">
             <template v-if="filesArray.length > 0">
-              <tr class="table__tbody-tr" v-for="(fileItem, index) in filesArray" :key="index">
+              <tr class="table__tbody-tr" v-for="(fileItem, index) in filesArray" :key="index" ref="items">
                 <td class="table__tbody-td">
                   <div class="table__tbody-td__name">
                     <div class="table__tbody-td__name-circle">
@@ -55,28 +74,35 @@ const { filesArray } = storeToRefs(storeFiles)
 
                 <td class="table__tbody-td">
                   <div class="table__tbody-td-button-block">
-                    <button class="table__tbody-td-button">
-                      <span class="table__tbody-td-button-span" />
-                      <span class="table__tbody-td-button-span" />
-                      <span class="table__tbody-td-button-span" />
-                    </button>
+                    <DropdownMenu :id="fileItem.file.id + 'drop-menu'" ref="drop-menu">
+                      <template #default>
+                        <div class="table__tbody-td-block">
+                          <span class="table__tbody-td-button-span" />
+                          <span class="table__tbody-td-button-span" />
+                          <span class="table__tbody-td-button-span" />
+                        </div>
+                      </template>
 
-                    <div class="table__tbody-td-button-dialog">
-                      <button
-                          @click.prevent="storeFiles.removeFile(fileItem.file)"
-                          class="table__tbody-td-button-dialog-btn"
-                      >
-                        Удалить файл
-                      </button>
+                      <template #content>
+                        <div class="table__tbody-td-button-dialog">
+                          <button
+                              @click.prevent="deleteElement(fileItem)"
+                              class="table__tbody-td-button-dialog-btn"
+                          >
+                            Удалить файл
+                          </button>
 
-                      <a v-if="fileItem.file.url"
-                         class="table__tbody-td-button-dialog-btn"
-                         :href="fileItem.file.url"
-                         download
-                      >
-                        Скачать файл
-                      </a>
-                    </div>
+                          <a
+                              v-if="fileItem.file.url"
+                              class="table__tbody-td-button-dialog-btn"
+                              :href="fileItem.file.url"
+                              download
+                          >
+                            Скачать файл
+                          </a>
+                        </div>
+                      </template>
+                    </DropdownMenu>
                   </div>
                 </td>
               </tr>
@@ -191,7 +217,7 @@ const { filesArray } = storeToRefs(storeFiles)
   width: fit-content;
 }
 
-.table__tbody-td-button {
+.table__tbody-td-block {
   cursor: pointer;
   display: flex;
   flex-direction: column;

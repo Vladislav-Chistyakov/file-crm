@@ -247,19 +247,19 @@ function deleteElement (file) {
   overflow: hidden;
 }
 
-//.table__tbody-td-button-dialog-btn {
-//  display: flex;
-//  padding: 10px 16px;
-//  background-color: var(--gray-300);
-//  color: var(--gray-900);
-//  align-items: center;
-//  font-size: 14px;
-//  line-height: 20px;
-//  transition: background-color .1s ease-in-out, color .1s ease-in-out;
-//  cursor: pointer;
-//  text-decoration: none;
-//  border: none;
-//}
+.table__tbody-td-button-dialog-btn {
+  display: flex;
+  padding: 10px 16px;
+  background-color: var(--gray-300);
+  color: var(--gray-900);
+  align-items: center;
+  font-size: 14px;
+  line-height: 20px;
+  transition: background-color .1s ease-in-out, color .1s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+}
 
 .table__tbody-td-button-dialog-btn:hover {
   background-color: var(--gray-500);

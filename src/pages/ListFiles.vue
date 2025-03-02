@@ -258,7 +258,6 @@ function deleteElement (file) {
   transition: background-color .1s ease-in-out, color .1s ease-in-out;
   cursor: pointer;
   text-decoration: none;
-  border: none;
 }
 
 .table__tbody-td-button-dialog-btn:hover {

@@ -26,6 +26,7 @@
 }
 
 .wrapper__main {
+  margin-bottom: 30px;
   color: var(--gray-500);
 }
 </style>

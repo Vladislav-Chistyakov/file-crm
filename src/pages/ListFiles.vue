@@ -1,29 +1,11 @@
 <script setup>
 import WrapperPage from '@/components/WrapperPage.vue'
 import { useFilesStore } from '@/store/files.js'
-import {storeToRefs} from "pinia";
-import DropdownMenu from "@/components/DropdownMenu.vue";
-import {onMounted, useTemplateRef} from "vue";
+import { storeToRefs } from 'pinia'
+import DropdownMenu from '@/components/DropdownMenu.vue'
 
 const storeFiles = useFilesStore()
 const { filesArray } = storeToRefs(storeFiles)
-
-const dropMenu = useTemplateRef('drop-menu')
-
-const list = useTemplateRef('items')
-
-onMounted(() => console.log(list.value))
-
-function deleteElement (file) {
-
-  console.log(list)
-  console.log(list.value)
-  // console.log(dropMenu)
-  // console.log(dropMenu.value.hide)
-  // console.log(dropMenu.value.hide())
-  // dropMenu.hide()
-  // storeFiles.removeFile(file.file)
-}
 </script>
 
 <template>
@@ -74,35 +56,7 @@ function deleteElement (file) {
 
                 <td class="table__tbody-td">
                   <div class="table__tbody-td-button-block">
-                    <DropdownMenu :id="fileItem.file.id + 'drop-menu'" ref="drop-menu">
-                      <template #default>
-                        <div class="table__tbody-td-block">
-                          <span class="table__tbody-td-button-span" />
-                          <span class="table__tbody-td-button-span" />
-                          <span class="table__tbody-td-button-span" />
-                        </div>
-                      </template>
-
-                      <template #content>
-                        <div class="table__tbody-td-button-dialog">
-                          <button
-                              @click.prevent="deleteElement(fileItem)"
-                              class="table__tbody-td-button-dialog-btn"
-                          >
-                            Удалить файл
-                          </button>
-
-                          <a
-                              v-if="fileItem.file.url"
-                              class="table__tbody-td-button-dialog-btn"
-                              :href="fileItem.file.url"
-                              download
-                          >
-                            Скачать файл
-                          </a>
-                        </div>
-                      </template>
-                    </DropdownMenu>
+                    <DropdownMenu :id="fileItem.file.id + 'drop-menu'" :fileItem="fileItem" />
                   </div>
                 </td>
               </tr>
@@ -183,9 +137,6 @@ function deleteElement (file) {
   border-bottom: 1px solid var(--gray-200);
 }
 
-.table__tbody {}
-.table__tbody-tr {}
-
 .table__tbody-td {
   padding-top: 16px;
   padding-bottom: 16px;
@@ -217,64 +168,6 @@ function deleteElement (file) {
   width: fit-content;
 }
 
-.table__tbody-td-block {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 20px;
-  width: 20px;
-  gap: 3px
-}
-
-.table__tbody-td-button-span {
-  display: block;
-  border-radius: 100%;
-  height: 3px;
-  width: 3px;
-  background-color: var(--gray-600);
-}
-
-.table__tbody-td-button-dialog {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--gray-500);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.table__tbody-td-button-dialog-btn {
-  display: flex;
-  padding: 10px 16px;
-  background-color: var(--gray-300);
-  color: var(--gray-900);
-  align-items: center;
-  font-size: 14px;
-  line-height: 20px;
-  transition: background-color .1s ease-in-out, color .1s ease-in-out;
-  cursor: pointer;
-  text-decoration: none;
-  border: none;
-}
-
-.table__tbody-td-button-dialog-btn:hover {
-  background-color: var(--gray-500);
-  color: white;
-}
-
-.table__tbody-td-button-dialog-btn:active {
-  background-color: var(--gray-900);
-  color: white;
-}
-
-.table__tbody-td-button-dialog-btn:not(:last-child) {
-  border-bottom: 1px solid var(--gray-500);
-}
-
 .table__tbody-td__name {
   display: flex;
   flex-direction: row;
@@ -290,10 +183,6 @@ function deleteElement (file) {
   align-items: center;
   justify-content: center;
   background-color: var(--primary-100);
-}
-
-.table__tbody-td__name-info {
-
 }
 
 .table__tbody-td__name-info-description {

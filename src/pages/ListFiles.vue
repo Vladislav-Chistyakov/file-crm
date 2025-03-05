@@ -3,6 +3,7 @@ import WrapperPage from '@/components/WrapperPage.vue'
 import { useFilesStore } from '@/store/files.js'
 import { storeToRefs } from 'pinia'
 import DropdownMenu from '@/components/DropdownMenu.vue'
+import IconTypeFile from "@/components/IconTypeFile.vue";
 
 const storeFiles = useFilesStore()
 const { filesArray } = storeToRefs(storeFiles)
@@ -40,7 +41,7 @@ const { filesArray } = storeToRefs(storeFiles)
                 <td class="table__tbody-td">
                   <div class="table__tbody-td__name">
                     <div class="table__tbody-td__name-circle">
-                      <img src="@/assets/icons/file-icon.svg" alt="file-icon" class="table__tbody-td__name-circle-image">
+                      <IconTypeFile :file-type="fileItem.type" :file-name="fileItem.name" />
                     </div>
 
                     <div class="table__tbody-td__name-info">

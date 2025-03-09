@@ -20,7 +20,7 @@
     default: 'src/assets/icons/file-icon.svg'
   }
 
-  const iconTypeFile = computed(() => {
+  const pathIconTypeFile = computed(() => {
     const fileFormat = fileType.slice(0, fileType.indexOf('/'))
     if (fileFormat) {
       return icons[fileFormat] || icons.default
@@ -35,7 +35,7 @@
 </script>
 
 <template>
-  <img :src="iconTypeFile" :alt="fileName || 'icon' " class="icon-type-file">
+  <img :src="pathIconTypeFile" :alt="fileName || 'icon' " class="icon-type-file">
 </template>
 
 <style scoped>

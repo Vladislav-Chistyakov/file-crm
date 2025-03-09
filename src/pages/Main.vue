@@ -13,6 +13,11 @@ const goToFilesList = async () => {
   activeDrop.value = false
   await router.push('/list-files')
 }
+
+const inputChange = async (event) => {
+  onInputChange(event)
+  await router.push('/list-files')
+}
 </script>
 
 <template>
@@ -46,7 +51,7 @@ const goToFilesList = async () => {
         <label  for="file-input" class="main-page-content__label">
           <img src="@/assets/icons/cloud-icon.svg" alt="cloud-icon" class="main-page-content__label-img">
           <span class="text-medium main-page-content__label-span">Upload</span>
-          <input class="main-page-content__label-input" type="file" id="file-input" multiple @change="onInputChange">
+          <input class="main-page-content__label-input" type="file" id="file-input" multiple @change="inputChange">
         </label>
       </section>
     </template>

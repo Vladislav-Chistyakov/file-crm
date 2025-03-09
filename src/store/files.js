@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia';
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
+import { initializeApp } from 'firebase/app'
+import { getDatabase, get, set, onValue, ref, child } from 'firebase/database'
 
 export const useFilesStore = defineStore('files', () => {
 
-    const files = ref([])
-
+    let files = []
 
     const calculateFileSize = (size) => {
         const dm = 2 < 0 ? 0 : 2
@@ -33,16 +34,16 @@ export const useFilesStore = defineStore('files', () => {
             .map((file) => new DownloadableFile(file))
             .filter((file) => !fileExists(file.id))
 
-        files.value = files.value.concat(newDownloadableFiles)
+        files = files.concat(newDownloadableFiles)
     }
 
     function fileExists(fileId) {
-        return files.value.some(({ id }) => id === fileId)
+        return files.some(({ id }) => id === fileId)
     }
 
     function removeFile(file) {
-        const index = files.value.indexOf(file)
-        if (index > -1) files.value.splice(index, 1)
+        const index = files.indexOf(file)
+        if (index > -1) files.splice(index, 1)
     }
 
     function onInputChange(e) {
@@ -50,8 +51,24 @@ export const useFilesStore = defineStore('files', () => {
         e.target.value = null
     }
 
+    const firebaseConfig = {
+        databaseURL: 'https://file-crm-5cf9b-default-rtdb.europe-west1.firebasedatabase.app/'
+    }
+
+    const app = initializeApp(firebaseConfig)
+
+    function writeUserData() {
+        const database = getDatabase(app)
+        console.log('test')
+        set(ref(database, '/files'), {
+            username: 'tes1t',
+            email: 'test',
+            profile_picture : 'test'
+        })
+    }
+
     const filesArray = computed(() => {
-        return files.value.map(file => {
+        return files.map(file => {
             return {
                 file: file,
                 name: file.file.name,
@@ -68,6 +85,7 @@ export const useFilesStore = defineStore('files', () => {
         filesArray,
         addFiles,
         removeFile,
-        onInputChange
+        onInputChange,
+        writeUserData
     }
 })

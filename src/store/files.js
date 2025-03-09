@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import { computed } from 'vue'
 import { initializeApp } from 'firebase/app'
-import { getDatabase, get, set, onValue, ref, child } from 'firebase/database'
+import { getDatabase, get, set, onValue, ref, child, push, remove } from 'firebase/database'
+import * as punycode from "node:punycode";
 
 export const useFilesStore = defineStore('files', () => {
 
@@ -56,15 +57,52 @@ export const useFilesStore = defineStore('files', () => {
     }
 
     const app = initializeApp(firebaseConfig)
+    const database = getDatabase(app)
+    const filesListBD = ref(database, 'files')
 
-    function writeUserData() {
-        const database = getDatabase(app)
-        console.log('test')
-        set(ref(database, '/files'), {
-            username: 'tes1t',
+    const data = computed(() => {
+        let test = null
+        get(child(filesListBD, `/`))
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    test = snapshot.val()
+                } else {
+                    console.log("No data available")
+                }
+        })
+            .catch((error) => {
+                console.error(error)
+            })
+        return test
+    })
+
+    function getDate () {
+        get(child(filesListBD, '/'))
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    console.log('files: ', snapshot.val())
+                } else {
+                    console.log("No data available")
+                }
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+    }
+
+
+    function setDataFiles() {
+        console.log('set')
+        set(filesListBD, [{
+            username: 'tes@21',
             email: 'test',
             profile_picture : 'test'
-        })
+        }])
+        getDate()
+    }
+
+    function removeDataFiles () {
+        remove(child(filesListBD, '/'))
     }
 
     const filesArray = computed(() => {
@@ -86,6 +124,8 @@ export const useFilesStore = defineStore('files', () => {
         addFiles,
         removeFile,
         onInputChange,
-        writeUserData
+        setDataFiles,
+        getDate,
+        removeDataFiles
     }
 })

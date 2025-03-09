@@ -5,7 +5,7 @@ import { ref } from 'vue'
 import { useFilesStore } from '@/store/files.js'
 import { useRouter } from 'vue-router'
 
-const { addFiles, onInputChange, writeUserData } = useFilesStore()
+const { addFiles, onInputChange, setDataFiles, getDate, removeDataFiles } = useFilesStore()
 const activeDrop = ref(false)
 const router = useRouter()
 
@@ -30,8 +30,10 @@ const inputChange = async (event) => {
 
     <template #main>
       <section class="main-page-content">
-        <div>
-          <button @click="writeUserData" style="cursor: pointer">click</button>
+        <div style="display: flex; flex-direction: row; gap: 12px">
+          <button @click="getDate" style="cursor: pointer">GET</button>
+          <button @click="setDataFiles" style="cursor: pointer">Add</button>
+          <button @click="removeDataFiles" style="cursor: pointer">Remove</button>
         </div>
         <DropZone class="main-page-content__drop-zone"
                   @files-dropped="addFiles"

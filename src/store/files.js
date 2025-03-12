@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 import { computed } from 'vue'
 import { initializeApp } from 'firebase/app'
 import { getDatabase, get, set, onValue, ref, child, push, remove } from 'firebase/database'
-import * as punycode from "node:punycode";
 
 export const useFilesStore = defineStore('files', () => {
 
@@ -59,6 +58,17 @@ export const useFilesStore = defineStore('files', () => {
     const app = initializeApp(firebaseConfig)
     const database = getDatabase(app)
     const filesListBD = ref(database, 'files')
+
+    // const setTest = (addFiles) => {
+    //     console.log('1', addFiles)
+    //     set(filesListBD, {
+    //         test: 'my-test'
+    //     })
+    // }
+    //
+    // const removeFiles = (index) => {
+    //     remove(filesListBD + `/${index}`).then(() => console.log('Успешно удалили files из BD'))
+    // }
 
     const data = computed(() => {
         let test = null

@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 export const useFilesStore = defineStore('files', () => {
 
-    let files = []
+    const files = ref([])
 
     const calculateFileSize = (size) => {
         const dm = 2 < 0 ? 0 : 2
@@ -32,17 +32,19 @@ export const useFilesStore = defineStore('files', () => {
             .map((file) => new DownloadableFile(file))
             .filter((file) => !fileExists(file.id))
         // setTest(newDownloadableFiles)
+
+        files.value = []
+        files.value = newDownloadableFiles.map(item => item)
         console.log('files', files)
-        files = files.concat(newDownloadableFiles)
     }
 
     function fileExists(fileId) {
-        return files.some(({ id }) => id === fileId)
+        return files.value.some(({ id }) => id === fileId)
     }
 
     function removeFile(file) {
-        const index = files.indexOf(file)
-        if (index > -1) files.splice(index, 1)
+        const index = files.value.indexOf(file)
+        if (index > -1) files.value.splice(index, 1)
     }
 
     function onInputChange(e) {
@@ -62,7 +64,8 @@ export const useFilesStore = defineStore('files', () => {
     // }
 
     const filesArray = computed(() => {
-        return files.map(file => {
+        console.log('filesArray', files.value)
+        return files.value.map(file => {
             return {
                 file: file,
                 name: file.file.name,

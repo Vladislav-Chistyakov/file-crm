@@ -9,6 +9,7 @@ import { computed } from 'vue'
 const storeFiles = useFilesStore()
 const { filesArray } = storeToRefs(storeFiles)
 const files = computed(() => filesArray.value)
+
 </script>
 
 <template>

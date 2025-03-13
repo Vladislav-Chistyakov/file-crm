@@ -4,11 +4,15 @@ import { useFilesStore } from '@/store/files.js'
 import { storeToRefs } from 'pinia'
 import DropdownMenu from '@/components/DropdownMenu.vue'
 import IconTypeFile from '@/components/IconTypeFile.vue'
-import { computed } from 'vue'
+import {computed, onMounted} from 'vue'
 
 const storeFiles = useFilesStore()
 const { filesArray } = storeToRefs(storeFiles)
 const files = computed(() => filesArray.value)
+
+onMounted(() => {
+  storeFiles.getFileListBd()
+})
 
 </script>
 

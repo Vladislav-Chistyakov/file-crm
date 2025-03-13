@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue'
+import { changingFilesInBD, filesListBD } from '@/utils/dataBase.js'
+import { get, remove } from 'firebase/database'
 
 export const useFilesStore = defineStore('files', () => {
 
@@ -24,27 +26,64 @@ export const useFilesStore = defineStore('files', () => {
             this.date = localeDate()
             this.status = null
             this.size = calculateFileSize(file.size)
+            this.name = `${file.name}`
+            this.type = `${file.type}`
         }
     }
 
-    function addFiles(newFiles) {
+    async function addFiles(newFiles) {
         const newDownloadableFiles = [...newFiles]
-            .map((file) => new DownloadableFile(file))
+            .map((file) => {
+                const data = new DownloadableFile(file)
+                console.log('data @@@', data)
+                return data
+            })
             .filter((file) => !fileExists(file.id))
-        // setTest(newDownloadableFiles)
 
-        files.value = []
-        files.value = newDownloadableFiles.map(item => item)
-        console.log('files', files)
+        changingFilesInBD(newDownloadableFiles.map(item => item))
+        await getFileListBd()
+        // files.value = newDownloadableFiles.map(item => item)
+        console.log('files', files.value)
     }
+
+    async function getFileListBd () {
+        await get(filesListBD).then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log(snapshot.val());
+                files.value = snapshot.val().map(item => item)
+            } else {
+                console.log("No data available");
+                files.value = []
+            }
+        }).catch((error) => {
+            console.error(error);
+        })
+    }
+
+    //
+    // onValue(filesListBD, async (snapshot) => {
+    //     const data = await snapshot.val()
+    //     console.log('data', data)
+    //     test(data)
+    // })
+    //
+    // function test (dataArray) {
+    //     console.log('get files', dataArray)
+    //     files.value = dataArray.map(item => item)
+    // }
 
     function fileExists(fileId) {
         return files.value.some(({ id }) => id === fileId)
     }
 
-    function removeFile(file) {
+    async function removeFile(file) {
         const index = files.value.indexOf(file)
-        if (index > -1) files.value.splice(index, 1)
+        if (index > -1) {
+            const array = files.value.map(item => item)
+            console.log('test remove: ', index, array.splice(index, 1))
+            changingFilesInBD(array)
+            await getFileListBd()
+        }
     }
 
     function onInputChange(e) {
@@ -66,13 +105,14 @@ export const useFilesStore = defineStore('files', () => {
     const filesArray = computed(() => {
         console.log('filesArray', files.value)
         return files.value.map(file => {
+            console.log(file)
             return {
                 file: file,
-                name: file.file.name,
-                type: file.file.type,
+                name: file.name,
+                type: file.type,
                 size: file.size,
                 date: file.date,
-                url: file.file.url,
+                url: file.url,
             }
         })
     })
@@ -83,5 +123,6 @@ export const useFilesStore = defineStore('files', () => {
         addFiles,
         removeFile,
         onInputChange,
+        getFileListBd,
     }
 })

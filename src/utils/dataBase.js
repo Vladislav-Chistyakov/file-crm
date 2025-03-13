@@ -11,7 +11,6 @@ const app = initializeApp(firebaseConfig)
 const database = getDatabase(app)
 export const filesListBD = ref(database, 'files')
 
-export const setTest = (addFiles) => {
+export const changingFilesInBD = (addFiles) => {
     set(filesListBD, addFiles)
 }
-

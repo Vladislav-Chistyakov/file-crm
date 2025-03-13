@@ -32,18 +32,28 @@ export const useFilesStore = defineStore('files', () => {
     }
 
     async function addFiles(newFiles) {
+        // const newDownloadableFiles = [...newFiles]
+        //     .map((file) => {
+        //         const data = new DownloadableFile(file)
+        //         console.log('data @@@', data)
+        //         return data
+        //     })
+        //     .filter((file) => !fileExists(file.id))
+
         const newDownloadableFiles = [...newFiles]
-            .map((file) => {
-                const data = new DownloadableFile(file)
-                console.log('data @@@', data)
-                return data
-            })
+            .map((file) => new DownloadableFile(file))
             .filter((file) => !fileExists(file.id))
 
-        changingFilesInBD(newDownloadableFiles.map(item => item))
+        files.value.length
+            ? changingFilesInBD(files.value.concat(newDownloadableFiles.map(item => item)))
+            : changingFilesInBD(newDownloadableFiles.map(item => item))
+
         await getFileListBd()
-        // files.value = newDownloadableFiles.map(item => item)
-        console.log('files', files.value)
+
+        // changingFilesInBD(newDownloadableFiles.map(item => item))
+        // await getFileListBd()
+        // // files.value = newDownloadableFiles.map(item => item)
+        // console.log('files', files.value)
     }
 
     async function getFileListBd () {

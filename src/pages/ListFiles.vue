@@ -3,10 +3,12 @@ import WrapperPage from '@/components/WrapperPage.vue'
 import { useFilesStore } from '@/store/files.js'
 import { storeToRefs } from 'pinia'
 import DropdownMenu from '@/components/DropdownMenu.vue'
-import IconTypeFile from "@/components/IconTypeFile.vue";
+import IconTypeFile from '@/components/IconTypeFile.vue'
+import { computed } from 'vue'
 
 const storeFiles = useFilesStore()
 const { filesArray } = storeToRefs(storeFiles)
+const files = computed(() => filesArray.value)
 </script>
 
 <template>
@@ -14,7 +16,6 @@ const { filesArray } = storeToRefs(storeFiles)
     <template #header>
       <div class="page-files-header wrapper">
         <h1 class="page-files-header__heading text-medium">Files uploaded</h1>
-
         <label  for="file-input" class="page-files-header__label">
           <img src="@/assets/icons/cloud-icon.svg" alt="cloud-icon" class="page-files-header__label-img">
           <span class="text-medium page-files-header__label-span">Upload</span>

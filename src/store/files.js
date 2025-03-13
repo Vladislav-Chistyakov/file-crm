@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia';
 import { computed } from 'vue'
-import { initializeApp } from 'firebase/app'
-import { getDatabase, get, set, onValue, ref, child, push, remove } from 'firebase/database'
 
 export const useFilesStore = defineStore('files', () => {
 
@@ -33,7 +31,8 @@ export const useFilesStore = defineStore('files', () => {
         const newDownloadableFiles = [...newFiles]
             .map((file) => new DownloadableFile(file))
             .filter((file) => !fileExists(file.id))
-
+        // setTest(newDownloadableFiles)
+        console.log('files', files)
         files = files.concat(newDownloadableFiles)
     }
 
@@ -51,14 +50,6 @@ export const useFilesStore = defineStore('files', () => {
         e.target.value = null
     }
 
-    const firebaseConfig = {
-        databaseURL: 'https://file-crm-5cf9b-default-rtdb.europe-west1.firebasedatabase.app/'
-    }
-
-    const app = initializeApp(firebaseConfig)
-    const database = getDatabase(app)
-    const filesListBD = ref(database, 'files')
-
     // const setTest = (addFiles) => {
     //     console.log('1', addFiles)
     //     set(filesListBD, {
@@ -69,51 +60,6 @@ export const useFilesStore = defineStore('files', () => {
     // const removeFiles = (index) => {
     //     remove(filesListBD + `/${index}`).then(() => console.log('Успешно удалили files из BD'))
     // }
-
-    const data = computed(() => {
-        let test = null
-        get(child(filesListBD, `/`))
-            .then((snapshot) => {
-                if (snapshot.exists()) {
-                    test = snapshot.val()
-                } else {
-                    console.log("No data available")
-                }
-        })
-            .catch((error) => {
-                console.error(error)
-            })
-        return test
-    })
-
-    function getDate () {
-        get(child(filesListBD, '/'))
-            .then((snapshot) => {
-                if (snapshot.exists()) {
-                    console.log('files: ', snapshot.val())
-                } else {
-                    console.log("No data available")
-                }
-            })
-            .catch((error) => {
-                console.error(error)
-            })
-    }
-
-
-    function setDataFiles() {
-        console.log('set')
-        set(filesListBD, [{
-            username: 'tes@21',
-            email: 'test',
-            profile_picture : 'test'
-        }])
-        getDate()
-    }
-
-    function removeDataFiles () {
-        remove(child(filesListBD, '/'))
-    }
 
     const filesArray = computed(() => {
         return files.map(file => {
@@ -134,8 +80,5 @@ export const useFilesStore = defineStore('files', () => {
         addFiles,
         removeFile,
         onInputChange,
-        setDataFiles,
-        getDate,
-        removeDataFiles
     }
 })

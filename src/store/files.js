@@ -6,6 +6,7 @@ import { get } from 'firebase/database'
 export const useFilesStore = defineStore('files', () => {
 
     const files = ref([])
+    const pendingGetFiles = ref(false)
 
     const calculateFileSize = (size) => {
         const dm = 2 < 0 ? 0 : 2
@@ -43,6 +44,7 @@ export const useFilesStore = defineStore('files', () => {
     }
 
     async function getFileListBd () {
+        pendingGetFiles.value = true
         await get(filesListBD).then((snapshot) => {
             if (snapshot.exists()) {
                 files.value = snapshot.val().map(item => item)
@@ -51,7 +53,7 @@ export const useFilesStore = defineStore('files', () => {
             }
         }).catch((error) => {
             console.error(error);
-        })
+        }).finally(() => pendingGetFiles.value = false)
     }
 
     function fileExists(fileId) {
@@ -89,6 +91,7 @@ export const useFilesStore = defineStore('files', () => {
     return {
         files,
         filesArray,
+        pendingGetFiles,
         addFiles,
         removeFile,
         onInputChange,

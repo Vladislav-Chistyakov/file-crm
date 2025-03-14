@@ -21,13 +21,11 @@ const active = ref(false)
 let inActiveTimeout = null
 
 function setActive () {
-  console.log('set active')
   active.value = true
   clearTimeout(inActiveTimeout)
 }
 
 function setInactive() {
-  console.log('set inactive')
   inActiveTimeout = setTimeout(() => {
     active.value = false
   }, 50)
@@ -36,7 +34,6 @@ function setInactive() {
 
 function onDrop(e) {
   setInactive()
-  console.log('onDrop', e)
   emit('files-dropped', [...e.dataTransfer.files])
 }
 

@@ -30,10 +30,6 @@ const inputChange = async (event) => {
 
     <template #main>
       <section class="main-page-content">
-        <div style="display: flex; flex-direction: row; gap: 12px">
-<!--          <button @click="setTest" style="cursor: pointer">setTest</button>-->
-<!--          <button @click="removeFiles" style="cursor: pointer">removeFiles</button>-->
-        </div>
         <DropZone class="main-page-content__drop-zone"
                   @files-dropped="addFiles"
                   @dragover="activeDrop = true"

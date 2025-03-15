@@ -13,11 +13,11 @@
   })
 
   const icons = {
-    image: 'src/assets/icons/image-icon.svg',
-    video: 'src/assets/icons/video-icon.svg',
-    fig: 'src/assets/icons/figma-icon.svg',
-    framex: 'src/assets/icons/framex-icon.svg',
-    default: 'src/assets/icons/file-icon.svg'
+    image: 'icons/image-icon.svg',
+    video: 'icons/video-icon.svg',
+    fig: 'icons/figma-icon.svg',
+    framex: 'icons/framex-icon.svg',
+    default: 'icons/file-icon.svg'
   }
 
   const pathIconTypeFile = computed(() => {

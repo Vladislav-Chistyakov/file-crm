@@ -118,6 +118,8 @@ function downloadFile () {
 
 .dropdown {
   position: relative;
+  display: flex;
+  height: 20px;
 }
 
 .dropdown__window {

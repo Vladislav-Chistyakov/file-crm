@@ -23,6 +23,7 @@
   font-size: 18px;
   line-height: 28px;
   padding: 20px 0;
+  border-bottom: 1px solid var(--gray-200);
 }
 
 .wrapper__main {

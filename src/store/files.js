@@ -32,6 +32,7 @@ export const useFilesStore = defineStore('files', () => {
     }
 
     async function addFiles(newFiles) {
+        await getFileListBd()
         const newDownloadableFiles = [...newFiles]
             .map((file) => new DownloadableFile(file))
             .filter((file) => !fileExists(file.id))
@@ -44,16 +45,18 @@ export const useFilesStore = defineStore('files', () => {
     }
 
     async function getFileListBd () {
-        pendingGetFiles.value = true
-        await get(filesListBD).then((snapshot) => {
-            if (snapshot.exists()) {
-                files.value = snapshot.val().map(item => item)
-            } else {
-                files.value = []
-            }
-        }).catch((error) => {
-            console.error(error);
-        }).finally(() => pendingGetFiles.value = false)
+        if (pendingGetFiles) {
+            pendingGetFiles.value = true
+            await get(filesListBD).then((snapshot) => {
+                if (snapshot.exists()) {
+                    files.value = snapshot.val().map(item => item)
+                } else {
+                    files.value = []
+                }
+            }).catch((error) => {
+                console.error(error);
+            }).finally(() => pendingGetFiles.value = false)
+        }
     }
 
     function fileExists(fileId) {
@@ -70,8 +73,8 @@ export const useFilesStore = defineStore('files', () => {
         }
     }
 
-    function onInputChange(e) {
-        addFiles(e.target.files)
+    async function onInputChange(e) {
+        await addFiles(e.target.files)
         e.target.value = null
     }
 

@@ -4,16 +4,13 @@ import { useFilesStore } from '@/store/files.js'
 import { storeToRefs } from 'pinia'
 import DropdownMenu from '@/components/DropdownMenu.vue'
 import IconTypeFile from '@/components/IconTypeFile.vue'
-import {computed, onMounted} from 'vue'
+import { computed } from 'vue'
 
 const storeFiles = useFilesStore()
 const { filesArray, pendingGetFiles } = storeToRefs(storeFiles)
 const files = computed(() => filesArray.value)
 
-onMounted(() => {
-  storeFiles.getFileListBd()
-})
-
+storeFiles.getFileListBd()
 </script>
 
 <template>
@@ -71,8 +68,7 @@ onMounted(() => {
 
             <template v-else-if="pendingGetFiles && !filesArray.length">
               <tr class="table__tbody-tr">
-                <td class="table__tbody-td td-pending-content" colspan="4">
-<!--                  {{ pendingGetFiles }}-->
+                <td class="table__tbody-td td-not-content " colspan="4">
                   <div class="loader" />
                 </td>
               </tr>
@@ -234,6 +230,7 @@ onMounted(() => {
 
 /* HTML: <div class="loader"></div> */
 .loader {
+  margin: 0 auto;
   width: 50px;
   aspect-ratio: 1;
   border-radius: 50%;

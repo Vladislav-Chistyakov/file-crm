@@ -15,7 +15,7 @@ const goToFilesList = async () => {
 }
 
 const inputChange = async (event) => {
-  onInputChange(event)
+  await onInputChange(event)
   await router.push('/list-files')
 }
 </script>

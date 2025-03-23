@@ -48,8 +48,8 @@ storeFiles.getFileListBd()
                     </div>
 
                     <div class="table__tbody-td__name-info">
-                      <p class="table__tbody-td__name-info-description">{{ fileItem.name }}</p>
-                      <span class="table__tbody-td__name-info-size text-gray-500">{{ fileItem.size }}</span>
+                      <p :title="fileItem.name" class="table__tbody-td__name-info-description">{{ fileItem.name }}</p>
+                        <span class="table__tbody-td__name-info-size text-gray-500">{{ fileItem.size }}</span>
                     </div>
                   </div>
                 </td>
@@ -134,6 +134,7 @@ storeFiles.getFileListBd()
 
 .page-files-content {
   width: 100%;
+  overflow: auto;
 }
 
 .page-files-content__table {
@@ -202,6 +203,11 @@ storeFiles.getFileListBd()
   line-height: 20px;
   color: var(--gray-900);
   font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 300px;
+  width: auto;
+  overflow: hidden;
 }
 
 .table__tbody-td__name-info-size {

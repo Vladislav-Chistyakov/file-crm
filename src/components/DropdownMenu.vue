@@ -51,19 +51,6 @@ function deleteElement () {
     hide()
   }
 }
-
-const idLink = props.id + '-link'
-
-function downloadFile () {
-  try {
-    const documentLink = document.getElementById(idLink)
-    documentLink.href = props.fileItem.file.url
-    documentLink.click()
-    hide()
-  } catch (e) {
-    console.error('Error download file', e)
-  }
-}
 </script>
 
 <template>
@@ -89,16 +76,6 @@ function downloadFile () {
           >
             Удалить файл
           </button>
-
-          <a
-              v-if="fileItem.file.url"
-              class="dropdown__window-link"
-              target="_blank"
-              :id="idLink"
-              @click="downloadFile"
-          >
-            Скачать файл
-          </a>
         </div>
     </div>
   </div>
@@ -185,9 +162,5 @@ function downloadFile () {
 .dropdown__window-button:active, .dropdown__window-link:active {
   background-color: var(--gray-900);
   color: white;
-}
-
-.dropdown__window-button {
-  border-bottom: 1px solid var(--gray-500);
 }
 </style>

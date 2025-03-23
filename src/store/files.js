@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { computed, ref } from 'vue'
 import { changingFilesInBD, filesListBD } from '@/utils/dataBase.js'
 import { get } from 'firebase/database'
+import * as url from "node:url";
 
 export const useFilesStore = defineStore('files', () => {
 
@@ -24,6 +25,7 @@ export const useFilesStore = defineStore('files', () => {
             this.file = file
             this.id = `${file.name}-${file.size}-${file.lastModified}-${file.type}`
             this.url = URL.createObjectURL(file)
+            console.log('URL', this.url)
             this.date = localeDate()
             this.size = calculateFileSize(file.size)
             this.name = `${file.name}`
